@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, FormEvent } from "react";
+import { redirect } from "next/navigation";
 
 interface SearchRepositoriesRequest {
   user: string | null;
@@ -16,9 +17,7 @@ export default function Home() {
       return;
     }
 
-    alert(userRef?.current?.value);
-
-    userRef.current.value = "";
+    redirect(`/repositories/${userRef.current.value}`);
   }
 
   return (

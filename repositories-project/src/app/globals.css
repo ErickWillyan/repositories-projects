@@ -6,4 +6,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  color: #d1d4d2;
+}
+
+body {
+  background-color: #0d1017;
 }
