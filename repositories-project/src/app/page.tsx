@@ -22,14 +22,28 @@ export default function Home() {
 
   return (
     <>
-      <div>
-        <h1>Busque os repositórios do usuário que desejar!</h1>
-      </div>
-      <form onSubmit={searchRepositories}>
-        <label>Insira o usuário:</label>
-        <input type="text" className="" ref={userRef} />
-        <input type="submit" value="Buscar" />
-      </form>
+      <main className="h-screen flex items-center p-8">
+        <div className="">
+          <h1 className=" text-2xl  font-bold mb-10">
+            Busque os repositórios do usuário que desejar!
+          </h1>
+          <form onSubmit={searchRepositories} className="flex flex-wrap">
+            <label className="text-lg font-semibold w-ful mb-3">Usuário:</label>
+            <input
+              name="userNameInput"
+              type="text"
+              className="font-normal text-base rounded-md w-full p-2 mb-6"
+              placeholder="Insira o usuário"
+              ref={userRef}
+            />
+            <input
+              type="submit"
+              value="Buscar"
+              className="w-full p-2 bg-buttonColor cursor-pointer hover:bg-buttonColorHover  rounded-md font-bold text-base duration-300"
+            />
+          </form>
+        </div>
+      </main>
     </>
   );
 }

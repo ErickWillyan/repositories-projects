@@ -13,6 +13,8 @@ export default {
     extend: {
       colors: {
         linkColor: "#4493f8",
+        buttonColor: "#2EA043",
+        buttonColorHover: "#2C974B",
       },
     },
   },

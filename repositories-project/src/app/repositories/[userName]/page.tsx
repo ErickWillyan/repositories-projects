@@ -18,6 +18,7 @@ interface RepositoriesProps {
   html_url: string;
   description: string;
   language: string;
+  avatar_url: string;
 }
 
 async function getRepositories(name: string) {
