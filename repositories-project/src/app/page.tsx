@@ -22,24 +22,29 @@ export default function Home() {
 
   return (
     <>
-      <main className="h-screen flex items-center p-8">
-        <div className="">
-          <h1 className=" text-2xl  font-bold mb-10">
+      <main className="h-screen sm:w-screen justify-center flex items-center p-8">
+        <div className="mb-60">
+          <h1 className=" text-2xl sm:text-4xl font-bold mb-10">
             Busque os repositórios do usuário que desejar!
           </h1>
-          <form onSubmit={searchRepositories} className="flex flex-wrap">
-            <label className="text-lg font-semibold w-ful mb-3">Usuário:</label>
+          <form
+            onSubmit={searchRepositories}
+            className="flex flex-wrap justify-around"
+          >
+            <label className="text-lg font-semibold w-full mb-3 sm:pl-5">
+              Usuário:
+            </label>
             <input
               name="userNameInput"
               type="text"
-              className="font-normal text-base rounded-md w-full p-2 mb-6"
+              className="font-normal text-base rounded-md w-full p-2 mb-6 sm:w-8/12"
               placeholder="Insira o usuário"
               ref={userRef}
             />
             <input
               type="submit"
               value="Buscar"
-              className="w-full p-2 bg-buttonColor cursor-pointer hover:bg-buttonColorHover  rounded-md font-bold text-base duration-300"
+              className="w-full sm:w-3/12 mb-6 p-2 bg-buttonColor cursor-pointer hover:bg-buttonColorHover  rounded-md font-bold text-base duration-300"
             />
           </form>
         </div>
