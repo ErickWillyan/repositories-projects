@@ -45,7 +45,10 @@ export default async function Repositories({ params }: UsernameRequest) {
       />
       <section>
         <h1>Repositorios</h1>
-        <div className="">
+        <div
+          id="ListRepositories"
+          className="flex flex-wrap w-screen justify-center"
+        >
           {response.map((item: RepositoriesProps) => {
             return <CardRepositories key={item.id} data={item} />;
           })}
