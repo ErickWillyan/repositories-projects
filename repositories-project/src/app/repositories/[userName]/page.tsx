@@ -28,7 +28,7 @@ async function getRepositories(name: string) {
 }
 
 export default async function Repositories({ params }: UsernameRequest) {
-  const { userName } = await params;
+  const { userName } = params;
   const response = await getRepositories(userName);
 
   const data: RepositoriesProps[] = await response;
@@ -43,11 +43,14 @@ export default async function Repositories({ params }: UsernameRequest) {
         width={50}
         height={50}
       />
-      <div className="grid grid-cols-[1fr_1fr] justify-items-center w-[50%]  m-auto">
-        {response.map((item: RepositoriesProps) => {
-          return <CardRepositories key={item.id} data={item} />;
-        })}
-      </div>
+      <section>
+        <h1>Repositorios</h1>
+        <div className="">
+          {response.map((item: RepositoriesProps) => {
+            return <CardRepositories key={item.id} data={item} />;
+          })}
+        </div>
+      </section>
     </>
   );
 }

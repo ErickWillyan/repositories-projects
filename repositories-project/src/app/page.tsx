@@ -24,20 +24,20 @@ export default function Home() {
     <>
       <main className="h-screen sm:w-screen justify-center flex items-center p-8">
         <div className="mb-60">
-          <h1 className=" text-2xl sm:text-4xl font-bold mb-10">
+          <h1 className=" text-2xl sm:text-4xl font-bold mb-10 select-none">
             Busque os repositórios do usuário que desejar!
           </h1>
           <form
             onSubmit={searchRepositories}
             className="flex flex-wrap justify-around"
           >
-            <label className="text-lg font-semibold w-full mb-3 sm:pl-5">
+            <label className="text-lg font-semibold w-full mb-3 sm:pl-5 select-none">
               Usuário:
             </label>
             <input
               name="userNameInput"
               type="text"
-              className="font-normal text-base rounded-md w-full p-2 mb-6 sm:w-8/12"
+              className="font-normal text-base rounded-md w-full p-2 mb-6 sm:w-8/12 placeholder-zinc-900 text-zinc-900"
               placeholder="Insira o usuário"
               ref={userRef}
             />
