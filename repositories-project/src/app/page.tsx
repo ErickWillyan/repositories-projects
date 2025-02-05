@@ -3,10 +3,6 @@
 import { useRef, FormEvent } from "react";
 import { redirect } from "next/navigation";
 
-interface SearchRepositoriesRequest {
-  user: string | null;
-}
-
 export default function Home() {
   const userRef = useRef<HTMLInputElement>(null);
 

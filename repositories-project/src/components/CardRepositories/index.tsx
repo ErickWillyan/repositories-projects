@@ -18,7 +18,7 @@ export default function CardRepositories({ data }: RepositoriesProps) {
       <a
         href={data.html_url}
         rel="noopener noreferrer"
-        target="_blank"
+        // target="_blank"
         className="text-linkColor font-bold text-sm hover:underline decoration-linkColor"
       >
         {data.name}
