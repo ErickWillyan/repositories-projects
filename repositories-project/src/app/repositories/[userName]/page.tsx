@@ -38,7 +38,7 @@ export default function Repositories({
   );
 
   if (error) return <div>falhou ao carregar</div>;
-  if (isLoading) return <div>carregando...</div>;
+  if (isLoading) return <div className="">carregando...</div>;
   if (!data) return <div>Não existe nenhum repositório</div>;
 
   function handleSubmitForm(event: FormEvent) {
@@ -56,7 +56,7 @@ export default function Repositories({
     <>
       <form
         onSubmit={handleSubmitForm}
-        className="flex mt-[90px] w-full justify-around"
+        className="sm:w-1/2 flex mt-[90px] mx-auto w-full justify-around"
       >
         <input
           type="text"
@@ -70,7 +70,7 @@ export default function Repositories({
           className="w-2/12 sm:w-3/12 mb-6 p-2 bg-buttonColor cursor-pointer hover:bg-buttonColorHover  rounded-md font-bold text-base duration-300"
         />
       </form>
-      <div className="w-screen flex items-center ml-5 my-5">
+      <div className="sm:w-1/2 w-screen flex sm:mx-auto items-center ml-5 my-5">
         <Image
           src={`https://github.com/${user}.png`}
           alt={user}
@@ -80,11 +80,11 @@ export default function Repositories({
         />
         <p className="text-lg font-bold ml-4">{user}</p>
       </div>
-      <section>
+      <section className="sm:w-1/2 mx-auto ">
         <h1 className="text-lg font-bold ml-5 mb-5">Repositorios</h1>
         <div
           id="ListRepositories"
-          className="flex flex-wrap w-screen justify-center"
+          className="sm:grid sm:grid-cols-[1fr_1fr] sm:justify-items-center flex flex-wrap w-screen justify-center"
         >
           {data.map((item: RepositoriesProps) => {
             return <CardRepositories key={item.id} data={item} />;
