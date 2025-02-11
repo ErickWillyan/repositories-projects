@@ -1,10 +1,9 @@
 "use client";
-import useSWR, { Fetcher } from "swr";
-import { FormEvent, use, useRef, useState } from "react";
+import { User, RepositoriesUser } from "@/utils/fetcher";
+import { redirect } from "next/navigation";
+import { FormEvent, use, useRef } from "react";
 import Image from "next/image";
-import { FaBeer } from "react-icons/fa";
 import CardRepositories from "@/components/CardRepositories";
-import { log } from "console";
 
 interface RepositoriesProps {
   id: number;
@@ -16,30 +15,34 @@ interface RepositoriesProps {
   html_url: string;
   description: string;
   language: string;
-  avatar_url: string;
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+interface UserProps {
+  login: string;
+  id: number;
+  name: string;
+  avatar_url: string;
+}
 
 export default function Repositories({
   params,
 }: {
   params: Promise<{ userName: string }>;
 }) {
-  const userRef = useRef<HTMLInputElement>(null);
-
   const { userName } = use(params);
 
-  const [user, setUser] = useState(userName);
+  const userRef = useRef<HTMLInputElement>(null);
 
-  const { data, error, isLoading } = useSWR<RepositoriesProps[]>(
-    `https://api.github.com/users/${user}/repos`,
-    fetcher
-  );
+  const userResponse = User(userName);
+  const repositoriesResponse = RepositoriesUser(userName);
 
-  if (error) return <div>falhou ao carregar</div>;
-  if (isLoading) return <div className="">carregando...</div>;
-  if (!data) return <div>Não existe nenhum repositório</div>;
+  if (userResponse.isLoading) return <div>Carregando...</div>;
+
+  if (repositoriesResponse.isLoading) return <div>Carregando...</div>;
+
+  let userData: UserProps = userResponse.user;
+
+  let repositoriesData: RepositoriesProps[] = repositoriesResponse.user;
 
   function handleSubmitForm(event: FormEvent) {
     event?.preventDefault();
@@ -47,16 +50,14 @@ export default function Repositories({
       alert("Preencha todos os campos!!!");
       return;
     }
-    setUser(userRef.current.value);
-
-    userRef.current.value = "";
+    redirect(`/repositories/${userRef.current.value}`);
   }
 
   return (
     <>
       <form
         onSubmit={handleSubmitForm}
-        className="sm:w-1/2 flex mt-[90px] mx-auto w-full justify-around"
+        className="sm:w-1/2 sm:justify-between flex mt-[90px] mx-auto w-full justify-around"
       >
         <input
           type="text"
@@ -71,22 +72,33 @@ export default function Repositories({
         />
       </form>
       <div className="sm:w-1/2 w-screen flex sm:mx-auto items-center ml-5 my-5">
-        <Image
-          src={`https://github.com/${user}.png`}
-          alt={user}
-          className="rounded-full"
-          width={50}
-          height={50}
-        />
-        <p className="text-lg font-bold ml-4">{user}</p>
+        {window.screen.width <= 640 ? (
+          <Image
+            src={`https://github.com/${userData.login}.png`}
+            alt={userData.name}
+            className="rounded-full"
+            width={50}
+            height={50}
+          />
+        ) : (
+          <Image
+            src={`https://github.com/${userData.login}.png`}
+            alt={userData.name}
+            className="rounded-full"
+            width={60}
+            height={60}
+          />
+        )}
+
+        <p className="sm:text-xl text-lg font-bold ml-4">{userData.name}</p>
       </div>
       <section className="sm:w-1/2 mx-auto ">
-        <h1 className="text-lg font-bold ml-5 mb-5">Repositorios</h1>
+        <h1 className="sm:text-xl text-lg font-bold ml-5 mb-5">Repositorios</h1>
         <div
           id="ListRepositories"
-          className="sm:grid sm:grid-cols-[1fr_1fr] sm:justify-items-center flex flex-wrap w-screen justify-center"
+          className="sm:grid sm:grid-cols-[1fr_1fr] sm:justify-items-center sm:w-full  flex flex-wrap w-screen justify-center"
         >
-          {data.map((item: RepositoriesProps) => {
+          {repositoriesData.map((item: RepositoriesProps) => {
             return <CardRepositories key={item.id} data={item} />;
           })}
         </div>
